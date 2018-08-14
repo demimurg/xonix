@@ -118,6 +118,7 @@ let startX, startY;
 function touchStarted() {
 	startX = mouseX;
 	startY = mouseY;
+	return false;
 }
 
 function touchEnded() {
