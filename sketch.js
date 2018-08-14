@@ -114,6 +114,25 @@ function keyPressed() {
 	}
 }
 
+let startX, startY;
+touchStarted() {
+	startX = mouseX;
+	startY = mouseY;
+}
+
+touchEnded() {
+	let deltaX = mouseX - startX;
+	let deltaY = mouseY - startY;
+
+	if (deltaX > 20) xonix.dir(1, 0); //вправо
+	else if (deltaX < -20) xonix.dir(-1, 0); //влево
+	else if (deltaY > 20) xonix.dir(0, 1); //вниз
+	else if (deltaY < -20) xonix.dir(0, -1);
+
+	startX = 0, startY = 0;
+	return false;
+}
+
 //таймер
 let seconds_left = set_timer;
 let timer = setInterval(() => {seconds_left--;}, 1000);
