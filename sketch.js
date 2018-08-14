@@ -1,7 +1,7 @@
 //игровые параметры
 const scl = 10;
 const indent = 2;
-const fps = 20;
+const fps = 24;
 const set_timer = 80;
 const LIFE = 3;
 
@@ -125,10 +125,13 @@ function touchEnded() {
 	let deltaX = mouseX - startX;
 	let deltaY = mouseY - startY;
 
-	if (deltaX > 3) xonix.dir(1, 0); //вправо
-	else if (deltaX < -3) xonix.dir(-1, 0); //влево
-	else if (deltaY > 3) xonix.dir(0, 1); //вниз
-	else if (deltaY < -3) xonix.dir(0, -1); //вверх
+	if (abs(deltaX) > abs(deltaY)) {
+		if (deltaX > 0) xonix.dir(1, 0); //вправо
+		else if (deltaX < 0) xonix.dir(-1, 0); //влево
+	} else {
+		if (deltaY > 0) xonix.dir(0, 1); //вниз
+		else if (deltaY < 0) xonix.dir(0, -1); //вверх
+	}
 
 	startX = 0, startY = 0;
 	return false;
