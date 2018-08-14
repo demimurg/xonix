@@ -22,7 +22,7 @@ function setup() {
 		while (num % scl != 0) num--;
 		return num;
 	}
-	createCanvas( adapt_size(windowWidth-20), adapt_size(windowHeight-20) );
+	createCanvas( adapt_size(windowWidth-10), adapt_size(windowHeight-10) );
 	height -= indent*scl; //отводим место под консоль
 
 	field = new Field();
@@ -124,10 +124,10 @@ function touchEnded() {
 	let deltaX = mouseX - startX;
 	let deltaY = mouseY - startY;
 
-	if (deltaX > 20) xonix.dir(1, 0); //вправо
-	else if (deltaX < -20) xonix.dir(-1, 0); //влево
-	else if (deltaY > 20) xonix.dir(0, 1); //вниз
-	else if (deltaY < -20) xonix.dir(0, -1); //вверх
+	if (deltaX > 5) xonix.dir(1, 0); //вправо
+	else if (deltaX < -5) xonix.dir(-1, 0); //влево
+	else if (deltaY > 5) xonix.dir(0, 1); //вниз
+	else if (deltaY < -5) xonix.dir(0, -1); //вверх
 
 	startX = 0, startY = 0;
 	return false;
