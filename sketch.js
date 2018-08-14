@@ -124,10 +124,10 @@ function touchEnded() {
 	let deltaX = mouseX - startX;
 	let deltaY = mouseY - startY;
 
-	if (deltaX > 5) xonix.dir(1, 0); //вправо
-	else if (deltaX < -5) xonix.dir(-1, 0); //влево
-	else if (deltaY > 5) xonix.dir(0, 1); //вниз
-	else if (deltaY < -5) xonix.dir(0, -1); //вверх
+	if (deltaX > 3) xonix.dir(1, 0); //вправо
+	else if (deltaX < -3) xonix.dir(-1, 0); //влево
+	else if (deltaY > 3) xonix.dir(0, 1); //вниз
+	else if (deltaY < -3) xonix.dir(0, -1); //вверх
 
 	startX = 0, startY = 0;
 	return false;
