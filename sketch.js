@@ -85,23 +85,12 @@ function draw() {
 let counter = 0;
 function keyPressed() {
 	//console.log(keyCode);
-	if (keyCode === UP_ARROW) {
-		if (xonix.onTheSea && xonix.lineSpeed == 1) return;
-		xonix.dir(0, -1);
+	if (keyCode === UP_ARROW) xonix.dir(0, -1);
+	else if (keyCode === DOWN_ARROW) xonix.dir(0, 1);
+	else if (keyCode === RIGHT_ARROW) xonix.dir(1, 0);
+	else if (keyCode === LEFT_ARROW) xonix.dir(-1, 0);
 
-	} else if (keyCode === DOWN_ARROW) {
-		if (xonix.onTheSea && xonix.lineSpeed == -1) return;
-		xonix.dir(0, 1);
-
-	} else if (keyCode === RIGHT_ARROW) {
-		if (xonix.onTheSea && xonix.colSpeed == -1) return;
-		xonix.dir(1, 0);
-
-	} else if (keyCode === LEFT_ARROW) {
-		if (xonix.onTheSea && xonix.colSpeed == 1) return;
-		xonix.dir(-1, 0);
-
-	} else if (keyCode === 32 && counter%2 == 0) {
+	else if (keyCode === 32 && counter%2 == 0) {
 		noLoop();
 		counter++;
 

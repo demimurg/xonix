@@ -26,6 +26,9 @@ class Xonix {
 
 	//используется при нажатии стрелок
 	dir(a, b) {
+		let backDir = this.colSpeed == -a || this.lineSpeed == -b;
+		if (this.onTheSea && backDir) return;
+
 		this.colSpeed = a;
 		this.lineSpeed = b;
 	}
