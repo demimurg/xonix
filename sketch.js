@@ -1,5 +1,5 @@
 //игровые параметры
-const scl = 10;
+const scl = 20;
 const indent = 2;
 const fps = 24;
 const set_timer = 80;
@@ -22,7 +22,7 @@ function setup() {
 		while (num % scl != 0) num--;
 		return num;
 	}
-	createCanvas( adapt_size(windowWidth-10), adapt_size(windowHeight-10) );
+	createCanvas( adapt_size(windowWidth), adapt_size(windowHeight - 10) );
 	height -= indent*scl; //отводим место под консоль
 
 	field = new Field();
@@ -142,18 +142,19 @@ function game_console() {
 	//заполняем консоль
 	fill(WHITE);
 	textSize(2*scl);
+	let h = height + (5/6)*indent*scl;
 
 	//счет
-	text("Score: " + xonix.score, 0.05 * width, height+17);
+	text("Score: " + xonix.score, 0.05 * width, h);
 
 	//количество жизней
-	text("Xn: " + xonix.life, 0.34 * width, height+17);
+	text("Xn: " + xonix.life, 0.34 * width, h);
 
 	//процент захваченного поля
-	text("Full: " + field.complete_percent + "%", 0.52 * width, height+17);
+	text("Full: " + field.complete_percent + "%", 0.52 * width, h);
 
 	//таймер
-	text("Time: " + seconds_left, 0.8 * width, height+17);
+	text("Time: " + seconds_left, 0.8 * width, h);
 }
 
 // let highscore_table = [];
