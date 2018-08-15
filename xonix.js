@@ -62,38 +62,32 @@ class Xonix {
 
 		let colDist, lineDist;
 		if (this.onTheSea == false || this.justLeftTheSea == true) {
-			//enemys_coord[0] - координаты врага на суше, последующие принадлежат врагам в море
-			colDist = abs(this.col - enemys_coord[0].col);
-			lineDist = abs(this.line - enemys_coord[0].line);
-
+			//enemies_coord[0] - координаты врага на суше, последующие принадлежат врагам в море
+			colDist = abs(this.col - enemies_coord[0].col);
+			lineDist = abs(this.line - enemies_coord[0].line);
 			if (colDist <= 1 && lineDist <= 1) this.isDead = true;
-
-			//не касается ли ксоникс своего следа
-			//меняем параметр justLeftTheSea, чтобы не сработало заполнение замкнутой области в функции grab
-			if (this.justLeftTheSea) {
-				this.trace.forEach(pos => {
-					if (pos.col == this.col && pos.line == this.line) {
-						this.isDead = true;
-						this.justLeftTheSea = false;
-					}
-				});
-			}
 		} else if (this.onTheSea == true) {
-			for (let i = 1; i < enemys_coord.length; i++) {
+			for (let i = 1; i < enemies_coord.length; i++) {
 				//проверяем: не касается ли враг на море ксоникса
-				colDist = abs(this.col - enemys_coord[i].col);
-				lineDist = abs(this.line - enemys_coord[i].line);
+				colDist = abs(this.col - enemies_coord[i].col);
+				lineDist = abs(this.line - enemies_coord[i].line);
 				if (colDist <= 1 && lineDist <= 1 ) this.isDead = true;
 
 
 				for (let j = 0; j < this.trace.length; j++) {
 					//проверяем: не касается ли враг следа
-					colDist = abs(this.trace[j].col - enemys_coord[i].col);
-					lineDist = abs(this.trace[j].line - enemys_coord[i].line);
+					colDist = abs(this.trace[j].col - enemies_coord[i].col);
+					lineDist = abs(this.trace[j].line - enemies_coord[i].line);
 					if (colDist <= 1 && lineDist <= 1 && this.justLeftTheSea == false) this.isDead = true;
 
 				}
 			}
+
+			//не касается ли ксоникс своего следа
+			this.trace.forEach(pos => {
+				if (pos.col == this.col
+				&& pos.line == this.line) this.isDead = true;
+			});
 		}
 
 		if (this.onTheSea) this.grab(arr);
@@ -102,7 +96,7 @@ class Xonix {
 	}
 
 	draw() {
-		strokeWeight(2);
+		strokeWeight(4);
 		strokeJoin(ROUND);
 
 		let fill_color = WHITE;
@@ -116,12 +110,20 @@ class Xonix {
 		stroke(stroke_color);
 		fill(fill_color);
 		//аргументы rect такие, чтобы ксоникс не вылезал из клетки
-		rect(this.col*scl+1, this.line*scl+1, scl-2, scl-2);
+		rect(this.col*scl+2, this.line*scl+2, scl-4, scl-4);
 	}
 
 	grab(arr) {
 		//заливка замкнутых областей как только ксоникс покинет поле
 		if (this.justLeftTheSea == true) {
+			let len = this.trace.length;
+			let col = this.trace[len-1].col;
+			let line = this.trace[len-1].line;
+
+			noStroke();
+			fill(PURPLE);
+			rect(col*scl, line*scl, scl, scl);
+
 			this.little_magic(arr);
 			this.trace.length = 0;
 			this.justLeftTheSea = false;
@@ -134,7 +136,6 @@ class Xonix {
 
 
 		//след ксоникса, служит границей при заполнении поля
-		arr[this.line][this.col] = 0;
 		this.trace.push({
 			col: this.col,
 			line: this.line
@@ -146,18 +147,17 @@ class Xonix {
 			let col = this.trace[len-2].col;
 			let line = this.trace[len-2].line;
 
-			fill(PURPLE);
 			noStroke();
+			fill(PURPLE);
 			rect(col*scl, line*scl, scl, scl);
 		}
 
 
 
 		//если ксоникс умер во время движения по морю,
-		//следу надо вернуть единичные значения
+		//закрашиваем обратно клетки моря
 		if (this.isDead == true && this.life > 1) {
 			this.trace.forEach(ceil => {
-				arr[ceil.line][ceil.col] = 1;
 				noStroke();
 				fill(BLACK);
 				rect(ceil.col*scl, ceil.line*scl, scl, scl);
@@ -172,9 +172,11 @@ class Xonix {
 
 
 	little_magic(arr) {
+		this.trace.forEach(ceil => arr[ceil.line][ceil.col] = 0);
+
 		let launch_point = {}
-		for (let i = 1; i < enemys_coord.length; i++) {
-			launch_point = enemys_coord[i];
+		for (let i = 1; i < enemies_coord.length; i++) {
+			launch_point = enemies_coord[i];
 			if (arr[launch_point.line][launch_point.col] == 2) continue;
 			this.filling_algorithm(launch_point, arr);
 		}

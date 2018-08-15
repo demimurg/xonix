@@ -15,7 +15,7 @@ const WHITE = '#cecaca';
 //инициализируем объекты
 let field, xonix, enemy;
 //здесь хранятся клетки для обновления на очередном шаге
-let enemys_coord, xonix_coord;
+let enemies_coord, xonix_coord;
 
 function setup() {
 	let adapt_size = num => {
@@ -27,7 +27,7 @@ function setup() {
 
 	field = new Field();
 	xonix = new Xonix();
-	makeEnemys(); //new seaEnemy() и new landEnemy()
+	makeEnemies(); //new seaEnemy() и new landEnemy()
 
 	frameRate(fps);
 	field.default();
@@ -50,8 +50,8 @@ function draw() {
 		xonix.score = 0;
 
 		field.default();
-		number_of_enemys = 3;
-		makeEnemys();
+		number_of_enemies = 3;
+		makeEnemies();
 	}
 
 	//переход на следующий уровень
@@ -64,8 +64,8 @@ function draw() {
 		field.default();
 		seconds_left = set_timer;
 
-		number_of_enemys++;
-		makeEnemys();
+		number_of_enemies++;
+		makeEnemies();
 	}
 
 	if (seconds_left == 0) {
@@ -73,8 +73,8 @@ function draw() {
 		xonix.isDead = true;
 	}
 
-	field.update(enemys_coord, xonix_coord);
-	updateEnemys(field.array);
+	field.update(enemies_coord, xonix_coord);
+	updateEnemies(field.array);
 	xonix.update(field.array);
 
 	game_console();

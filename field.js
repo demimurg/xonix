@@ -31,8 +31,8 @@ class Field {
 	}
 
 
-	update(enemys_ceils, xonix_ceils) {
-		let ceils = [...enemys_ceils, ...xonix_ceils];
+	update(enemies_ceils, xonix_ceils) {
+		let ceils = [...enemies_ceils, ...xonix_ceils];
 
 		ceils.forEach((ceil) => {
 			if (this.array[ceil.line][ceil.col] == 1) {
@@ -45,6 +45,7 @@ class Field {
 				rect(ceil.col*scl, ceil.line*scl, scl, scl);
 			}
 		});
+
 
 		if (xonix_ceils.length > 1) {
 			let sea_fullsquare = (width/scl - 2*indent) * (height/scl - 2*indent);
