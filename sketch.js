@@ -22,7 +22,7 @@ function setup() {
 		while (num % scl != 0) num--;
 		return num;
 	}
-	createCanvas( adapt_size(windowWidth), adapt_size(windowHeight - 10) );
+	createCanvas( adapt_size(windowWidth - 10), adapt_size(windowHeight - 10) );
 	height -= indent*scl; //отводим место под консоль
 
 	field = new Field();
