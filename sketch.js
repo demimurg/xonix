@@ -1,7 +1,7 @@
 //игровые параметры
 const scl = 20;
 const indent = 2;
-const fps = 24;
+const fps = 16;
 const set_timer = 80;
 const LIFE = 3;
 
