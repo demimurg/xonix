@@ -1,4 +1,4 @@
-<h3 align="center">Xonix - javascript remake of the legend. Сlick on the picture to play!👾</h3>
+<h1 align="center">Xonix - javascript remake of the legend. Сlick on the picture to play!👾</h1>
 <p align="center">
   <a href="https://madmaxeatfax.github.io/xonix/">
     <img src="assets/gameplay.gif" title="gameplay">
