@@ -116,6 +116,8 @@ class Xonix {
 	grab(arr) {
 		//заливка замкнутых областей как только ксоникс покинет поле
 		if (this.justLeftTheSea == true) {
+			sound.fill.play();
+
 			let len = this.trace.length;
 			let col = this.trace[len-1].col;
 			let line = this.trace[len-1].line;

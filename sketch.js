@@ -5,7 +5,6 @@ const fps = 16;
 const set_timer = 80;
 const LIFE = 3;
 
-
 //цветовая палитра
 const BLACK = '#000000';
 const BLUE = '#57afb1';
@@ -17,7 +16,16 @@ let field, xonix, enemy;
 //здесь хранятся клетки для обновления на очередном шаге
 let enemies_coord, xonix_coord;
 
+let sound
+
 function setup() {
+	sound = {
+		fill: loadSound("assets/fill.mp3"),
+		death: loadSound("assets/death.mp3"),
+		newLevel: loadSound("assets/new_level.mp3"),
+		fail: loadSound("assets/fail.mp3")
+	}
+
 	let adapt_size = num => {
 		while (num % scl != 0) num--;
 		return num;
@@ -36,6 +44,8 @@ function setup() {
 function draw() {
 	//потеря жизни
 	if (xonix.isDead) {
+		sound.death.play();
+
 		xonix.life--;
 		xonix.toDefault();
 		enemy[0].toDefault();
@@ -44,6 +54,8 @@ function draw() {
 
 	//дополнительные изменения, если потерял все жизни
 	if (xonix.life == 0) {
+		sound.fail.play();
+
 		alert("You Screwed Up \nScore: " + xonix.score);
 		//highscore_table.push(xonix_score);
 		xonix.life = LIFE;
@@ -56,6 +68,8 @@ function draw() {
 
 	//переход на следующий уровень
 	if (field.complete_percent >= 75) {
+		sound.newLevel.play();
+
 		xonix.score += 500;
 		xonix.life++;
 
@@ -84,7 +98,6 @@ function draw() {
 
 let counter = 0;
 function keyPressed() {
-	//console.log(keyCode);
 	if (keyCode === UP_ARROW) xonix.dir(0, -1);
 	else if (keyCode === DOWN_ARROW) xonix.dir(0, 1);
 	else if (keyCode === RIGHT_ARROW) xonix.dir(1, 0);
